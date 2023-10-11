@@ -1,6 +1,7 @@
 import express from 'express';
 import authRouter from './routes/authRouter.js';
 import postRouter from './routes/postRouter.js';
+import commentRouter from './routes/commentRouter.js';
 import mongoose from 'mongoose';
 import multer from 'multer';
 import { authMiddleware } from './middleware/authMiddleware.js';
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 app.use('/auth', authRouter);
 app.use('/posts', postRouter);
+app.use('/comment', commentRouter);
 app.post('/upload', authMiddleware, upload.single('image'), (req, res) => {
     res.json({
         url: `/upload/${req.file.originalname}`
