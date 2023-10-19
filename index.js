@@ -5,6 +5,7 @@ import commentRouter from './routes/commentRouter.js';
 import mongoose from 'mongoose';
 import multer from 'multer';
 import { authMiddleware } from './middleware/authMiddleware.js';
+import cors from 'cors';
 
 const app = express();
 
@@ -20,11 +21,12 @@ const storage = multer.diskStorage({
 const upload = multer({storage});
 
 app.use(express.json());
+app.use(cors());
 app.use('/uploads', express.static('uploads'));
 app.use('/auth', authRouter);
 app.use('/posts', postRouter);
 app.use('/comment', commentRouter);
-app.post('/upload', authMiddleware, upload.single('image'), (req, res) => {
+app.post('/upload', upload.single('image'), (req, res) => {
     res.json({
         url: `/upload/${req.file.originalname}`
     })

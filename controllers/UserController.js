@@ -36,12 +36,13 @@ export default class UserController {
                 avatar: req.body.avatar,
             });
             const user = await userData.save();
-            const token = generateAccessToken(user._id, user.roles, user.name, user.email);
+            const token = generateAccessToken(user._id, user.roles, user.name, user.email, user.avatar);
             res.json({
                 ...user._doc,
                 token
             });
         } catch (e) {
+            console.log(e);
             return res.status(500).json({message: 'Не удалось зарегистрировать пользователя'})
         }
     }
@@ -53,7 +54,7 @@ export default class UserController {
             if (!user || !isValidPassw) {
                 return res.status(404).json({message: 'Неверный логин или пароль'});
             }
-            const token = generateAccessToken(user._id, user.roles, user.name, user.email);
+            const token = generateAccessToken(user._id, user.roles, user.name, user.email, user.avatar);
             res.json({
                 ...user._doc,
                 token
