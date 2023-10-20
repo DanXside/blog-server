@@ -28,7 +28,7 @@ app.use('/posts', postRouter);
 app.use('/comment', commentRouter);
 app.post('/upload', upload.single('image'), (req, res) => {
     res.json({
-        url: `/upload/${req.file.originalname}`
+        url: `/uploads/${req.file.originalname}`
     })
 })
 

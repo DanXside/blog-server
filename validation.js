@@ -13,7 +13,7 @@ export const postValidator = [
     body('title', 'Заголовок поста не менее 6 символов').isLength({min: 6}).isString(),
     body('text').optional().isString(),
     body('sections').optional().isArray(),
-    body('postImage').optional().isURL()
+    body('postImage').optional().isString()
 ];
 
 export const commentValidator = [

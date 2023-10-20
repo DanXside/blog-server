@@ -4,12 +4,13 @@ import bcrypt from 'bcrypt';
 import UserModel from '../models/UserModel.js';
 import { secret } from '../config.js';
 
-const generateAccessToken = (id, roles, name, email) => {
+const generateAccessToken = (id, roles, name, email, avatar) => {
     const payload = {
         id,
         roles,
         name,
-        email
+        email,
+        avatar
     };
     return jwt.sign(payload, secret, {expiresIn: '7d'});
 }

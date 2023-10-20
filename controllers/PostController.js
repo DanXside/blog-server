@@ -31,11 +31,22 @@ export default class PostController {
 
     async getPosts (req, res) {
         try {
-            const posts = await PostModel.find().populate('user').exec();
+            const page = req.query.page;
+            const limit = req.query.limit;
+            const startIndex = (Number(page) - 1) * limit;
+            const posts = await PostModel.find().populate('user').limit(limit).skip(startIndex).exec();
+
+            const totalPages = Math.ceil(await PostModel.countDocuments({}) / limit);
             if (!posts) {
                 return res.status(404).json({message: 'Посты не найдены'})
             }
-            res.json(posts);
+            res.json({
+                posts,
+                pagination: {
+                    currPage: page,
+                    total: totalPages
+                }
+            });
         } catch (e) {
             return res.status(500).json({message: 'Не удалось найти посты'})
         }
