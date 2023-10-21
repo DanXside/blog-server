@@ -6,7 +6,7 @@ import CommentController from "../controllers/CommentController.js";
 const router = new Router();
 const controller = new CommentController();
 
-router.post('/:id', authMiddleware, commentValidator, controller.createComment);
-router.get('/:id', authMiddleware, controller.getComments)
+router.post('/', authMiddleware, commentValidator, controller.createComment);
+router.get('/comms', authMiddleware, controller.getComments)
 
 export default router;

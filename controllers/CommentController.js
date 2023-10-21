@@ -10,8 +10,8 @@ export default class CommentController {
             }
             const commentData = new Comment({
                 text: req.body.text,
-                user: req.user.id,
-                post: req.params.id
+                user: req.body.user,
+                post: req.body.post
             });
             const comment = await commentData.save();
             res.json(comment);
@@ -22,10 +22,10 @@ export default class CommentController {
 
     async getComments (req, res) {
         try {
-            const postId = req.params.id;
+            const postId = req.query.id;
             await Comment.find({
                 post: postId
-            }).then((doc, err) => {
+            }).populate('user').then((doc, err) => {
                 if (err) {
                     return res.status(500).json({message: 'Не удалось получить комментарии'})
                 }

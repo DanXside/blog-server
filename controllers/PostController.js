@@ -54,7 +54,7 @@ export default class PostController {
 
     getPost (req, res) {
         try {
-            const postId = req.params.id;
+            const postId = req.query.id;
             PostModel.findOneAndUpdate(
                 {
                     _id: postId
@@ -65,7 +65,7 @@ export default class PostController {
                 {
                     returnDocument: 'after'
                 }
-            ).then((doc, err) => {
+            ).populate('user').then((doc, err) => {
                 if (err) {
                     return res.status(500).json({message: 'Не удалось вернуть пост'})
                 }

@@ -17,5 +17,5 @@ export const postValidator = [
 ];
 
 export const commentValidator = [
-    body('text', 'Комментарий должен быть не короче 2 символов').isLength({min: 2})
+    body('text', 'Комментарий должен быть не короче 2 символов').isLength({min: 2}).isString()
 ];
