@@ -39,4 +39,18 @@ export default class CommentController {
             return res.status(500).json({message: 'Не удалось загрузить комментарии'});
         }
     }
+
+    async getCommentCount (req, res) {
+        try {
+            const postId = req.query.id;
+            const comm = await Comment.find({post: postId});
+            res.json({
+                data: {
+                    commCount: comm.length
+                }
+            })
+        } catch (e) {
+            return res.status(500).json({message: 'Не удалось загрузить кол-во комментариев'});
+        }
+    }
 }

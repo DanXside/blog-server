@@ -106,7 +106,7 @@ export default class PostController {
 
     deletePost (req, res) {
         try {
-            const postId = req.params.id;
+            const postId = req.query.id;
             PostModel.findOneAndDelete(
                 {
                     _id: postId
