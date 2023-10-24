@@ -8,6 +8,6 @@ const controller = new CommentController();
 
 router.post('/', authMiddleware, commentValidator, controller.createComment);
 router.get('/comms', authMiddleware, controller.getComments);
-router.get('/comm-count', authMiddleware, controller.getCommentCount);
+router.get('/comm-count', controller.getCommentCount);
 
 export default router;

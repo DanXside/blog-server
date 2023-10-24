@@ -34,7 +34,7 @@ export default class PostController {
             const page = req.query.page;
             const limit = req.query.limit;
             const startIndex = (Number(page) - 1) * limit;
-            const posts = await PostModel.find().populate('user').limit(limit).skip(startIndex).exec();
+            const posts = await PostModel.find().populate('user').sort({createdAt: -1}).limit(limit).skip(startIndex).exec();
 
             const totalPages = Math.ceil(await PostModel.countDocuments({}) / limit);
             if (!posts) {
