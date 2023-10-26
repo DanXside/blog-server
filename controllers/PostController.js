@@ -81,7 +81,7 @@ export default class PostController {
 
     async updatePost (req, res) {
         try {
-            const postId = req.params.id;
+            const postId = req.query.id;
             const updatePost = await PostModel.updateOne(
                 {
                     _id: postId
